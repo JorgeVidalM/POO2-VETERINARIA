@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-4">
+    <h2>Editar Dueño</h2>
+
+    <form action="{% url 'editarDueno' %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="txtRut" value="{{ dueno.rut }}">
+        <div class="row">
+            <div class="col-md-6">
+                <label for="txtNombre">Nombre completo:</label>
+                <input type="text" name="txtNombre" class="form-control" value="{{ dueno.nombre_completo }}" required>
+            </div>
+            <div class="col-md-6">
+                <label for="txtDireccion">Dirección:</label>
+                <input type="text" name="txtDireccion" class="form-control" value="{{ dueno.direccion }}" required>
+            </div>
+            <div class="col-md-6">
+                <label for="txtTelefono">Teléfono:</label>
+                <input type="text" name="txtTelefono" class="form-control" value="{{ dueno.telefono }}" required>
+            </div>
+            <div class="col-md-6">
+                <label for="txtCorreo">Correo electrónico:</label>
+                <input type="email" name="txtCorreo" class="form-control" value="{{ dueno.correo }}" required>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success mt-3">Guardar Cambios</button>
+        <a href="{% url 'gestion_dueno' %}" class="btn btn-secondary mt-3">Volver</a>
+    </form>
+
+</div>
+
+{% endblock %}

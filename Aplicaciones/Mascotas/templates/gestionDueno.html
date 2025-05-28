@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-4">
+    <h2>Gestión de Dueños</h2>
+
+
+    <form action="{% url 'registrarDueno' %}" method="POST" class="mb-4">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-6">
+                <label for="txtRut">RUT:</label>
+                <input type="text" name="txtRut" id="txtRut" class="form-control" maxlength="12" required>
+            </div>
+            <div class="col-md-6">
+                <label for="txtNombre">Nombre completo:</label>
+                <input type="text" name="txtNombre" class="form-control" required>
+            </div>
+            <div class="col-md-6">
+                <label for="txtDireccion">Dirección:</label>
+                <input type="text" name="txtDireccion" class="form-control" required>
+            </div>
+            <div class="col-md-3">
+                <label for="txtTelefono">Teléfono:</label>
+                <input type="text" name="txtTelefono" id="txtTelefono" class="form-control" maxlength="9" required>
+            </div>
+            <div class="col-md-3">
+                <label for="txtCorreo">Correo:</label>
+                <input type="email" name="txtCorreo" class="form-control" required>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Registrar</button>
+    </form>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+ 
+    <table class="table table-striped mt-3">
+        <thead>
+            <tr>
+                <th>RUT</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Teléfono</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for dueno in duenos %}
+            <tr>
+                <td>{{ dueno.rut }}</td>
+                <td>{{ dueno.nombre_completo }}</td>
+                <td>{{ dueno.correo }}</td>
+                <td>{{ dueno.telefono }}</td>
+                <td>
+                    <a href="{% url 'edicionDueno' dueno.rut %}" class="btn btn-warning btn-sm">Editar</a>
+                    <a href="{% url 'eliminarDueno' dueno.rut %}" class="btn btn-danger btn-sm" onclick="return confirm('¿Eliminar este dueño?')">Eliminar</a>
+                    <a href="{% url 'detalle_dueno' dueno.rut %}" class="btn btn-info btn-sm">Detalle</a>
+
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

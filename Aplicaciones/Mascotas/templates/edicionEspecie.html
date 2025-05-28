@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-4">
+    <h2>Editar Especie</h2>
+
+    <form action="{% url 'editarEspecie' %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="idEspecie" value="{{ especie.id }}">
+        <div class="form-group">
+            <label for="txtNombre">Nombre de la especie:</label>
+            <input type="text" name="txtNombre" class="form-control" value="{{ especie.nombre }}" required>
+        </div>
+        <button type="submit" class="btn btn-success mt-3">Guardar cambios</button>
+        <a href="{% url 'gestion_especie' %}" class="btn btn-secondary mt-3">Volver</a>
+    </form>
+
+</div>
+
+{% endblock %}

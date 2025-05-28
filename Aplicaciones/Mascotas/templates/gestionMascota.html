@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-4">
+    <h2>Gestión de Mascotas</h2>
+    
+    <form action="{% url 'registrarMascota' %}" method="POST" class="mb-4">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-4">
+                <label>Nombre:</label>
+                <input type="text" name="txtNombre" class="form-control" required>
+            </div>
+            <div class="col-md-4">
+                <label>Fecha de nacimiento:</label>
+                        <input type="date" name="fechaNacimiento"
+                        value="{{ mascota.fecha_nacimiento|date:'Y-m-d' }}"
+                        class="form-control" required min="1900-01-01" max="2025-12-31">
+            </div>
+            <div class="col-md-4">
+                <label>Sexo:</label>
+                <select name="sexo" class="form-control" required>
+                    <option value="M">Macho</option>
+                    <option value="H">Hembra</option>
+                </select>
+            </div>
+
+            <div class="col-md-6 mt-3">
+                <label>Dueño:</label>
+                <select class="form-control" name="dueno" required>
+                    {% for d in duenos %}
+                    <option value="{{ d.rut }}">{{ d.nombre_completo }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-md-6 mt-3">
+                <label>Especie:</label>
+                <select name="especie" class="form-control" required>
+                    {% for especie in especies %}
+                        <option value="{{ especie.id }}">{{ especie.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Registrar</button>
+    </form>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <p>Total mascotas registradas: {{ mascotas|length }}</p>
+
+    <table class="table table-striped mt-3">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Fecha Nac.</th>
+                <th>Sexo</th>
+                <th>Dueño</th>
+                <th>Especie</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for mascota in mascotas %}
+            <tr>
+                <td>{{ mascota.nombre }}</td>
+                <td>{{ mascota.fecha_nacimiento }}</td>
+                <td>{{ mascota.sexo }}</td>
+                <td>{{ mascota.dueno.nombre_completo }}</td>
+                <td>{{ mascota.especie.nombre }}</td>
+                <td>
+                    <a href="{% url 'edicionMascota' mascota.id %}" class="btn btn-warning btn-sm">Editar</a>
+                    <a href="{% url 'eliminarMascota' mascota.id %}" class="btn btn-danger btn-sm" onclick="return confirm('¿Deseas eliminar esta mascota?')">Eliminar</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="6" class="text-center">No hay mascotas registradas.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

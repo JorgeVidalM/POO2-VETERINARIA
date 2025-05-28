@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-4">
+    <h2>Menú Principal</h2>
+    
+    <div class="mt-3">
+        <h5>Bienvenidos a Nuestra Clínica Veterinaria</h5>
+        <p>
+            En nuestra clínica veterinaria, nos dedicamos con pasión y compromiso al cuidado integral de la salud y bienestar de tus mascotas. 
+            Ofrecemos atención médica de calidad para perros, gatos y otras pequeñas especies, en un ambiente cálido, seguro y profesional.
+        </p>
+        <p>
+            Contamos con un equipo de veterinarios capacitados y con experiencia, tecnología moderna y un enfoque personalizado para brindar 
+            diagnósticos precisos, tratamientos efectivos y una atención cercana tanto para los animales como para sus dueños.
+        </p>
+        <p>
+            Nuestros servicios incluyen consultas generales, vacunación, desparasitación, cirugías, análisis clínicos, odontología, urgencias, 
+            peluquería y más. También te orientamos en la prevención de enfermedades y en el manejo responsable de tus compañeros peludos.
+        </p>
+        <p>
+            Porque sabemos que son parte de tu familia, los cuidamos como si fueran parte de la nuestra.
+        </p>
+    </div>
+
+    <div class="list-group mt-4">
+        <a href="/duenos/" class="list-group-item list-group-item-action">👤 Gestión de Dueños</a>
+        <a href="/mascotas" class="list-group-item list-group-item-action">🐾 Gestión de Mascotas</a>
+        <a href="/especie/" class="list-group-item list-group-item-action">🦴 Gestión de Especies</a>
+    </div>
+</div>
+
+{% endblock %}
